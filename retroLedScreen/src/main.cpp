@@ -1,48 +1,24 @@
 #include <Arduino.h>
-#include <FastLED.h>
 
-#define LED_PIN     7
-#define NUM_LEDS    20
-#define NUM_XLEDS   20
-#define NUM_YLEDS   14
-
-CRGB leds[NUM_LEDS];
-CRGB ledMatrix[NUM_YLEDS][NUM_XLEDS];
-void ledUpdate(){
-  for(int y = 0; y < NUM_YLEDS; y++){
-    for(int x = 0; x < NUM_XLEDS; x++){
-      int n = y*NUM_XLEDS + x;
-      leds[n] = ledMatrix[y][x];
-    }
-  }
-}
+int player1_val;
+int player2_val;
+const int player1_pot = A0;
+const int player2_pot = A1;
 
 void setup() {
-  FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+  pinMode(player1_pot, INPUT);
+  pinMode(player2_pot, INPUT);
+  Serial.begin(9600);
 }
 
 void loop() {
-  // leds[0] = CRGB(255, 0, 0);
-  // FastLED.show();
-  // delay(500);  
-  // leds[1] = CRGB(0, 255, 0);
-  // FastLED.show();
-  // delay(500);
-  // leds[2] = CRGB(0, 0, 255);
-  // FastLED.show();
-  // delay(500);
-  // leds[5] = CRGB(150, 0, 255);
-  // FastLED.show();
-  // delay(500);
-  // leds[9] = CRGB(255, 200, 20);
-  // FastLED.show();
-  // delay(500);
-  // leds[14] = CRGB(85, 60, 180);
-  // FastLED.show();
-  // delay(500);
-  // leds[19] = CRGB(50, 255, 20);
-  // FastLED.show();
-  // delay(500);
-  ledUpdate();
-  FastLED.show();
+  
+  player1_val = analogRead(player1_pot);
+  player2_val = analogRead(player2_pot);
+  Serial.print(millis());
+  Serial.print(" ");
+  Serial.print(player1_val);
+  Serial.print(" ");
+  Serial.println(player2_val);
+  
 }
