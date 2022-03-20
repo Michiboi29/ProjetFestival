@@ -1,6 +1,6 @@
 # Imports
 import serial
-import curses
+import unicurses as curses
 
 # Constants
 HEIGHT = 24
