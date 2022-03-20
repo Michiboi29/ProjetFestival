@@ -7,9 +7,10 @@
 #define P1_DOWN 3
 #define P2_UP 4
 #define P2_DOWN 5
+
 const unsigned long PADDLE_RATE = 1;
 const unsigned long BALL_RATE = 1;
-const uint8_t PADDLE_HEIGHT = 4;
+const int8_t PADDLE_HEIGHT = 4;
 int P1_SCORE = 0;
 int P2_SCORE = 0;
 int MAX_SCORE = 8;
@@ -17,17 +18,17 @@ bool resetBall = false;
 #define SCREEN_HEIGHT = 14;
 #define SCREEN_WIDTH = 20;
 
-uint8_t ball_x = 10, ball_y = 7;
-uint8_t ball_dir_x = 1, ball_dir_y = 1;
+int8_t ball_x = 10, ball_y = 7;
+int8_t ball_dir_x = 1, ball_dir_y = 1;
 unsigned long ball_update;
 
 unsigned long paddle_update;
 // ou la paddle du p1 est
-const uint8_t P1_X = 1;
-uint8_t P1_y = 5;
+const int8_t P1_X = 1;
+int8_t P1_y = 5;
 // ou la paddle du p2 est
-const uint8_t P2_x = 18;
-uint8_t P2_y = 5;
+const int8_t P2_x = 18;
+int8_t P2_y = 5;
 
 void setup(){
     unsigned long start = millis();
@@ -48,7 +49,7 @@ void setup(){
     // Reset de la Partie
     pinMode(RESTART, INPUT_PULLUP);
 
-    display.display();
+    //display.display();
 
     ball_update = millis();
     paddle_update = ball_update;
@@ -94,8 +95,8 @@ void loop() {
     P2_down_state |= (digitalRead(P2_DOWN)== LOW);
 
     if(time > ball_update){
-        uint8_t new_x = ball_x + ball_dir_x;
-        uint8_t new_y = ball_y + ball_dir_y;
+        int8_t new_x = ball_x + ball_dir_x;
+        int8_t new_y = ball_y + ball_dir_y;
         // Verifier si on touche un  mur
         if( new_x == 0 || new_x == 19){
             // Si P2 a scorrer
@@ -135,8 +136,47 @@ void loop() {
     }
     if(time > paddle_update) {
         paddle_update += PADDLE_RATE;
-        
+        //P1
+        if(P1_up_state){
+            P1_y++;
+        }
+        if(P1_down_state){
+            P1_y--;
+        }
+        if(P1_y < 0){
+            P1_y =0;
+        }
+        if(P1_y + PADDLE_HEIGHT > 13){
+            P1_y = 13 - PADDLE_HEIGHT
+        }
+        P1_down_state = P1_up_state = false;
+        // P2
+        if(P2_up_state){
+            P2_y++;
+        }
+        if(P2_down_state){
+            P2_y--;
+        }
+        if(P2_y < 0){
+            P2_y =0;
+        }
+        if(P2_y + PADDLE_HEIGHT > 13){
+            P2_y = 13 - PADDLE_HEIGHT
+        }
+        P2_down_state = P2_up_state = false;
     }
-
+    update = true;
+    // if(update) { display}
 
 }
+
+void gameOver(){
+    unsigned long start = millis();
+    while (millis() - start < 2000);
+    ball_update = millis();
+    paddle_update = ball_update;
+    resetBall = true;
+    
+}
+
+
