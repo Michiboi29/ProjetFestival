@@ -60,6 +60,83 @@ void loop() {
     bool update = false;
     unsigned long time = millis();
 
+    static bool P1_up_state = false;
+    static bool P1_down_state = false;
+    static bool P2_up_state = false;
+    static bool P2_down_state = false;
+
+    if(digitalRead(RESTART)== LOW){
+        gameOver();
+    }
+    if(resetBall)
+    {
+        if(P1_SCORE == maxScore || P2_SCORE == MAX_SCORE)
+        {
+            gameOver();
+        }
+    else{
+        ball_x = random(9,10);
+        ball_y = random(5, 8);
+        do{
+            ball_dir_x = random(-1,1);
+    }while(ball_dir_x == 0);
+    do
+    {
+        ball_dir_y = random(-1,1);
+    }while(ball_dir_y == 0);
+        resetBall = false;
+        }
+    }
+
+    P1_up_state |= (digitalRead(P1_UP)== LOW);
+    P1_down_state |= (digitalRead(P1_DOWN)== LOW);
+    P2_up_state |= (digitalRead(P2_UP)== LOW);
+    P2_down_state |= (digitalRead(P2_DOWN)== LOW);
+
+    if(time > ball_update){
+        uint8_t new_x = ball_x + ball_dir_x;
+        uint8_t new_y = ball_y + ball_dir_y;
+        // Verifier si on touche un  mur
+        if( new_x == 0 || new_x == 19){
+            // Si P2 a scorrer
+            if(new_x == 0){
+                P1_SCORE++;
+                resetBall = true;
+            }
+            // Si p1 a scorrer
+            else if(new_y == 19){
+                P2_SCORE++;
+                resetBall =true;
+            }
+            ball_dir_x = -ball_dir_x;
+            new_x += ball_dir_x + ball_dir_x;
+        }
+        // verifier si touche plafond/plancher
+        if(new_y == 0 || new_y == 13){
+            ball_dir_y = -ball_dir_y; // changement de la direction
+            new_y += ball_dir_y + ball_dir_y; // faire bouger la balle lus loin que le mur
+        }
+        // verifier si on touche la Paddle du P1
+        if ( new_x == P1_X && new_y >= P1_y && new_y <= P1_y + PADDLE_HEIGHT){
+            ball_dir_x = -ball_dir_x; // changement de la direction
+            new_x += ball_dir_x + ball_dir_x; // nouvelle pos
+        }
+        // verifier si on touche la paddle p2
+        if ( new_x == P2_X && new_y >= P2_y && new_y <= P2_y + PADDLE_HEIGHT){
+            ball_dir_x = -ball_dir_x; // changement de la direction
+            new_x += ball_dir_x + ball_dir_x; // nouvelle pos
+        }
+        ball_x = new_x; // assignation de la new pos
+        ball_y = new_y; // assignation de la new pos
+
+        ball_update += BALL_RATE;
+
+        update = true; //update de l'etat de la partie
+    }
+    if(time > paddle_update) {
+        paddle_update += PADDLE_RATE;
+        
+    }
 
 
 }
