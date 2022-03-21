@@ -58,13 +58,13 @@ void Pong::resetBall(uint8_t p_reset_ball){
             switch (p_reset_ball)
             {
             case 1: //p1 start with ball
-                ball_x = p1_x + 1;
+                ball_x = p1_x;
                 ball_y = p1_y;
                 ball_dir_x = 1;
                 ball_dir_y = 1;
                 break;
             case 2: // p2 start with ball
-                ball_x = p2_x - 1;
+                ball_x = p2_x;
                 ball_y = p2_y;
                 ball_dir_x = -1;
                 ball_dir_y = -1;
