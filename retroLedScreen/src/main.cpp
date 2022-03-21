@@ -1,4 +1,5 @@
 #include <Arduino.h>
+#include "pong.h"
 
 // Game Settings
 int screenHeight = 14 + 2;
