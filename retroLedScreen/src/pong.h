@@ -11,7 +11,7 @@
 #define P2_DOWN 5
 
 // Constants
-#define PADDLE_HEIGHT 4
+#define PADDLE_HEIGHT 3
 #define SCREEN_HEIGHT 14
 #define SCREEN_WIDTH 20
 #define MAX_SCORE 8
@@ -21,6 +21,9 @@ class Pong{
         void init();
         void run();
         void gameOver();
+
+        int winner = 0;
+        bool restart = true;
 
         bool update = false;
         int p1_score = 0;
@@ -32,8 +35,10 @@ class Pong{
 
     private:
         void gameReset();
-        void resetBall();
+        void resetBall(uint8_t);
         void paddleStateUpdate();
+        bool isPaddleP1Hit(int new_x, int new_y);
+        bool isPaddleP2Hit(int new_x, int new_y);
         void updateBall();
         void updatePaddle();
 
@@ -41,7 +46,7 @@ class Pong{
         const int p2_x = 18;
         const int paddle_rate = 1;
         int ball_rate = 1;
-        bool reset_ball = false;
+        uint8_t reset_ball = 0;
         unsigned long ball_update;
         unsigned long paddle_update;
         unsigned long start;

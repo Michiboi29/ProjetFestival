@@ -11,6 +11,9 @@ class SerialMonitorDisplay{
     void displayScore(int p1, int p2);
     void displayData(int bal_x, int bal_y, int paddle_p1, int paddle_p2);
     void drawScreen(int bal_x, int bal_y, int paddle_p1, int paddle_p2, int score_p1, int score_p2);
+    void startGame();
+    void gameOver(int winner);
+
 
     private:
     bool isPaddleHeight(int paddle, int i);

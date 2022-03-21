@@ -5,7 +5,7 @@ void SerialMonitorDisplay::init(){
 }
 
 bool SerialMonitorDisplay::isPaddleHeight(int paddle, int i){
-  if ((i <= (screenHeight - 1 - paddle)) && i >= (screenHeight - 1 - paddle - PADDLE_HEIGHT)){
+  if ((i <= (screenHeight - 1 - paddle)) && i >= (screenHeight - 1 - paddle - (PADDLE_HEIGHT-1))){
     return true;
   }
   else return false;
@@ -87,4 +87,104 @@ void SerialMonitorDisplay::drawScreen(int bal_x, int bal_y, int paddle_p1, int p
     }
   }
   delay(updateSpeed);
+}
+
+void SerialMonitorDisplay::startGame(){
+    Serial.println("");
+  for(int i=0; i < screenHeight+1;i++){
+    if(i==0){ // Draw statusbar
+       
+       Serial.println("");
+    }
+    else if(i==1){ // Draw the roof
+      for(int a=0; a < screenWidth; a++){
+        Serial.print("-");
+      }
+      Serial.println("");
+    }
+    else if(i==(screenHeight)){ // Draw the floor
+      for(int a=0; a < screenWidth; a++){
+        Serial.print("-");
+      }
+      Serial.println("");
+    }
+    else if (i==(screenHeight - 10)){ // start
+        String start_string[5] = {"s", "t", "a", "r", "t"};
+        for(int a = 0; a < screenWidth; a++){
+            if(a == 0 || a == screenWidth -1){ //Draw Edge
+            Serial.print("#");
+            }
+            else if(a > 4 || a < 4 + 5){ //Draw paddle p1
+                for (int j = 0; j < 5; j++){
+                    Serial.print(start_string[j]);
+                }
+            }
+            else{// Draw void
+            Serial.print(".");
+            }
+        }
+    }
+    else { // actual led screen
+      for(int a = 0; a < screenWidth; a++){
+        if(a == 0 || a == screenWidth -1){ //Draw Edge
+          Serial.print("#");
+        }
+        else{// Draw void
+          Serial.print(".");
+        }
+      }
+      Serial.println("");
+    }
+  }
+  delay(3000);
+}
+
+void SerialMonitorDisplay::gameOver(int winner){
+    Serial.println("");
+  for(int i=0; i < screenHeight+1;i++){
+    if(i==0){ // Draw statusbar
+       
+       Serial.println("");
+    }
+    else if(i==1){ // Draw the roof
+      for(int a=0; a < screenWidth; a++){
+        Serial.print("-");
+      }
+      Serial.println("");
+    }
+    else if(i==(screenHeight)){ // Draw the floor
+      for(int a=0; a < screenWidth; a++){
+        Serial.print("-");
+      }
+      Serial.println("");
+    }
+    else if (i==(screenHeight - 10)){ // start
+        String start_string[6] = {"P", (String)winner, "w", "i", "n", "s"};
+        for(int a = 0; a < screenWidth; a++){
+            if(a == 0 || a == screenWidth -1){ //Draw Edge
+            Serial.print("#");
+            }
+            else if(a > 4 || a < 4 + 6){ //Draw paddle p1
+                for (int j = 0; j < 6; j++){
+                    Serial.print(start_string[j]);
+                }
+            }
+            else{// Draw void
+            Serial.print(".");
+            }
+        }
+    }
+    else { // actual led screen
+      for(int a = 0; a < screenWidth; a++){
+        if(a == 0 || a == screenWidth -1){ //Draw Edge
+          Serial.print("#");
+        }
+        else{// Draw void
+          Serial.print(".");
+        }
+      }
+      Serial.println("");
+    }
+  }
+  delay(3000);
 }

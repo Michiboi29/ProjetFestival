@@ -12,5 +12,14 @@ void setup() {
 
 void loop() {
   game.run();
-  display.drawScreen(game.ball_x, game.ball_y, game.p1_y, game.p2_y, game.p1_score, game.p2_score);
+  
+  if(game.winner != 0){
+    display.gameOver(game.winner);
+  }
+  else if(game.restart){
+    display.startGame();
+  }
+  else{
+    display.drawScreen(game.ball_x, game.ball_y, game.p1_y, game.p2_y, game.p1_score, game.p2_score);
+  }
 }
