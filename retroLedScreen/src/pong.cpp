@@ -22,7 +22,7 @@ void Pong::init(){
 }
 
 
-void Pong::runGame() {
+void Pong::run() {
     unsigned long time = millis();
 
     // read reset button
@@ -72,6 +72,8 @@ void Pong::paddleStateUpdate(){
 }
 
 void Pong::gameReset(){
+    p1_score = 0;
+    p2_score = 0;
     start = millis();
     while (millis() - start < 2000);
     ball_update = millis();
@@ -87,22 +89,22 @@ void Pong::updateBall(){
     int new_x = ball_x + ball_dir_x;
     int new_y = ball_y + ball_dir_y;
     // Verifier si on touche un  mur
-    if( new_x == 0 || new_x == 19){
+    if( new_x < 0 || new_x > 19){
         // Si P2 a scorrer
-        if(new_x == 0){
-            p1_score++;
+        if(new_x < 0){
+            p2_score++;
             reset_ball = true;
         }
         // Si p1 a scorrer
-        else if(new_y == 19){
-            p2_score++;
+        else if(new_x > 19){
+            p1_score++;
             reset_ball = true;
         }
         ball_dir_x = -ball_dir_x;
         new_x += ball_dir_x + ball_dir_x;
     }
     // verifier si touche plafond/plancher
-    if(new_y == 0 || new_y == 13){
+    if(new_y < 0 || new_y > 13){
         ball_dir_y = -ball_dir_y; // changement de la direction
         new_y += ball_dir_y + ball_dir_y; // faire bouger la balle lus loin que le mur
     }
@@ -128,10 +130,10 @@ void Pong::updatePaddle(){
     paddle_update += paddle_rate;
     //P1
     if(p1_up_state){
-        p1_y++;
+        p1_y--;
     }
     if(p1_down_state){
-        p1_y--;
+        p1_y++;
     }
     if(p1_y < 0){
         p1_y = 0;
@@ -142,10 +144,10 @@ void Pong::updatePaddle(){
     p1_down_state = p1_up_state = false;
     // P2
     if(p2_up_state){
-        p2_y++;
+        p2_y--;
     }
     if(p2_down_state){
-        p2_y--;
+        p2_y++;
     }
     if(p2_y < 0){
         p2_y = 0;

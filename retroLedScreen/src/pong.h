@@ -19,17 +19,15 @@
 class Pong{
     public:
         void init();
-        void runGame();
+        void run();
         void gameOver();
-        
+
         bool update = false;
         int p1_score = 0;
         int p2_score = 0;
         int ball_x = 10, ball_y = 7;
         int ball_dir_x = 1, ball_dir_y = 1;
-        const int p1_x = 1;
         int p1_y = 5;
-        const int p2_x = 18;
         int p2_y = 5;
 
     private:
@@ -38,7 +36,9 @@ class Pong{
         void paddleStateUpdate();
         void updateBall();
         void updatePaddle();
-        
+
+        const int p1_x = 1;
+        const int p2_x = 18;
         const int paddle_rate = 1;
         int ball_rate = 1;
         bool reset_ball = false;
