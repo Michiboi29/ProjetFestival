@@ -22,7 +22,7 @@ void Pong::init(){
 }
 
 
-void Pong::run() {
+int Pong::run() {
     unsigned long time = millis();
 
     // read reset button
@@ -32,6 +32,10 @@ void Pong::run() {
 
     resetBall(reset_ball);
 
+    if(restart){
+        return 1;
+    }
+
     paddleStateUpdate();
 
     if(time > ball_update){
@@ -40,6 +44,8 @@ void Pong::run() {
     if(time > paddle_update) {
         updatePaddle();
     }
+
+    return 0;
 }
 
 void Pong::resetBall(uint8_t p_reset_ball){
@@ -113,13 +119,10 @@ void Pong::gameReset(){
     ball_update = millis();
     paddle_update = ball_update;
     reset_ball = 3;
-    restart = false;
 }
 
 void Pong::gameOver(){
-    delay(1000);
     gameReset();
-    winner = 0;
 }
 
 bool Pong::isPaddleP1Hit(int new_x, int new_y){
@@ -189,8 +192,8 @@ void Pong::updatePaddle(){
     if(p1_y < 0){
         p1_y = 0;
     }
-    if((p1_y + PADDLE_HEIGHT) > 13){
-        p1_y = 13 - PADDLE_HEIGHT;
+    if((p1_y + (PADDLE_HEIGHT - 1)) > 13){
+        p1_y = 13 - (PADDLE_HEIGHT-1);
     }
     p1_down_state = p1_up_state = false;
     // P2
@@ -203,8 +206,8 @@ void Pong::updatePaddle(){
     if(p2_y < 0){
         p2_y = 0;
     }
-    if((p2_y + PADDLE_HEIGHT) > 13){
-        p2_y = 13 - PADDLE_HEIGHT;
+    if((p2_y + (PADDLE_HEIGHT - 1)) > 13){
+        p2_y = 13 - (PADDLE_HEIGHT-1);
     }
     p2_down_state = p2_up_state = false;
     

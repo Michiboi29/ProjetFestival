@@ -109,20 +109,20 @@ void SerialMonitorDisplay::startGame(){
       Serial.println("");
     }
     else if (i==(screenHeight - 10)){ // start
-        String start_string[5] = {"s", "t", "a", "r", "t"};
+        const int start_lengt = 5;
+        String start_string[start_lengt] = {"s", "t", "a", "r", "t"};
         for(int a = 0; a < screenWidth; a++){
             if(a == 0 || a == screenWidth -1){ //Draw Edge
             Serial.print("#");
             }
-            else if(a > 4 || a < 4 + 5){ //Draw paddle p1
-                for (int j = 0; j < 5; j++){
-                    Serial.print(start_string[j]);
-                }
+            else if(a >= 4 && a < 4 + start_lengt){ //Draw paddle p1
+                Serial.print(start_string[a-4]);
             }
             else{// Draw void
             Serial.print(".");
             }
         }
+        Serial.println("");
     }
     else { // actual led screen
       for(int a = 0; a < screenWidth; a++){
@@ -140,7 +140,7 @@ void SerialMonitorDisplay::startGame(){
 }
 
 void SerialMonitorDisplay::gameOver(int winner){
-    Serial.println("");
+  Serial.println("");
   for(int i=0; i < screenHeight+1;i++){
     if(i==0){ // Draw statusbar
        
@@ -159,20 +159,20 @@ void SerialMonitorDisplay::gameOver(int winner){
       Serial.println("");
     }
     else if (i==(screenHeight - 10)){ // start
-        String start_string[6] = {"P", (String)winner, "w", "i", "n", "s"};
+        const int win_lengt = 7;
+        String win_string[win_lengt] = {"P", String(winner), ".", "w", "i", "n", "s"};
         for(int a = 0; a < screenWidth; a++){
             if(a == 0 || a == screenWidth -1){ //Draw Edge
             Serial.print("#");
             }
-            else if(a > 4 || a < 4 + 6){ //Draw paddle p1
-                for (int j = 0; j < 6; j++){
-                    Serial.print(start_string[j]);
-                }
+            else if(a >= 4 && a < 4 + win_lengt){ //Draw paddle p1
+                Serial.print(win_string[a-4]);
             }
             else{// Draw void
             Serial.print(".");
             }
         }
+        Serial.println("");
     }
     else { // actual led screen
       for(int a = 0; a < screenWidth; a++){
@@ -186,5 +186,6 @@ void SerialMonitorDisplay::gameOver(int winner){
       Serial.println("");
     }
   }
-  delay(3000);
+  delay(5000);
+    
 }

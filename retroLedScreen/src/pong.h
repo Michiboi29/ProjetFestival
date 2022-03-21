@@ -14,12 +14,12 @@
 #define PADDLE_HEIGHT 3
 #define SCREEN_HEIGHT 14
 #define SCREEN_WIDTH 20
-#define MAX_SCORE 8
+#define MAX_SCORE 3
 
 class Pong{
     public:
         void init();
-        void run();
+        int run();
         void gameOver();
 
         int winner = 0;
