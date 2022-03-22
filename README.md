@@ -9,3 +9,10 @@ Idées de frame:
 
 Idée Pour utiliser leds:
 https://howtomechatronics.com/tutorials/arduino/how-to-control-ws2812b-individually-addressable-leds-using-arduino/
+
+Idées frame 2:
+![image](https://user-images.githubusercontent.com/60533283/159500632-d73c9065-7197-42ca-bace-86a0b454849b.png)
+
+![image](https://user-images.githubusercontent.com/60533283/159500746-be45381a-3412-4257-9f8d-1f1bd96db4ed.png)
+
+![image](https://user-images.githubusercontent.com/60533283/159500816-c5b139bc-4b47-473d-9de1-4a5e77772133.png)
