@@ -4,8 +4,8 @@ void SerialMonitorDisplay::init(){
     Serial.begin(115200);
 }
 
-bool SerialMonitorDisplay::isPaddleHeight(int paddle, int i){
-  if ((i <= (screenHeight - 1 - paddle)) && i >= (screenHeight - 1 - paddle - (PADDLE_HEIGHT-1))){
+bool SerialMonitorDisplay::isPaddleHeight(int paddle, int y){
+  if ((y <= (screenHeight - 1 - paddle)) && y >= (screenHeight - 1 - paddle - (PADDLE_HEIGHT-1))){
     return true;
   }
   else return false;
@@ -32,47 +32,47 @@ void SerialMonitorDisplay::displayData(int bal_x, int bal_y, int paddle_p1, int 
 
 void SerialMonitorDisplay::drawScreen(int bal_x, int bal_y, int paddle_p1, int paddle_p2, int score_p1, int score_p2){
   Serial.println("");
-  for(int i=0; i < screenHeight+1;i++){
-    if(i==0){ // Draw statusbar
+  for(int y=0; y < screenHeight+1;y++){
+    if(y==0){ // Draw statusbar
        displayData(bal_x, bal_y, paddle_p1, paddle_p2);
        displayScore(score_p1, score_p2);
        Serial.println("");
     }
-    else if(i==1){ // Draw the roof
-      for(int a=0; a < screenWidth; a++){
+    else if(y==1){ // Draw the roof
+      for(int x=0; x < screenWidth; x++){
         Serial.print("-");
       }
       Serial.println("");
     }
-    else if(i==(screenHeight)){ // Draw the floor
-      for(int a=0; a < screenWidth; a++){
+    else if(y==(screenHeight)){ // Draw the floor
+      for(int x=0; x < screenWidth; x++){
         Serial.print("-");
       }
       Serial.println("");
     }
     else { // actual led screen
-      for(int a = 0; a < screenWidth; a++){
-        if(a == 0 || a == screenWidth -1){ //Draw Edge
+      for(int x = 0; x < screenWidth; x++){
+        if(x == 0 || x == screenWidth -1){ //Draw Edge
           Serial.print("#");
         }
-        else if(a == p1_posx){ //Draw paddle p1
-          if(isPaddleHeight(paddle_p1, i)) { // p1
+        else if(x == p1_posx){ //Draw paddle p1
+          if(isPaddleHeight(paddle_p1, y)) { // p1
             Serial.print("|");
           }
           else{// Draw void
             Serial.print(".");
           }
         }
-        else if(a == p2_posx){ //Draw paddle p2
-          if(isPaddleHeight(paddle_p2, i)) { // p1
+        else if(x == p2_posx){ //Draw paddle p2
+          if(isPaddleHeight(paddle_p2, y)) { // p1
             Serial.print("|");
           }
           else{// Draw void
             Serial.print(".");
           }
         }
-        else if(a == bal_x + 1){ //Draw bal
-          if(i == (screenHeight - 1 - bal_y)) { // p1
+        else if(x == bal_x + 1){ //Draw bal
+          if(y == (screenHeight - 1 - bal_y)) { // p1
             Serial.print("*");
           }
           else{// Draw void
@@ -91,32 +91,32 @@ void SerialMonitorDisplay::drawScreen(int bal_x, int bal_y, int paddle_p1, int p
 
 void SerialMonitorDisplay::startGame(){
     Serial.println("");
-  for(int i=0; i < screenHeight+1;i++){
-    if(i==0){ // Draw statusbar
+  for(int y=0; y < screenHeight+1;y++){
+    if(y==0){ // Draw statusbar
        
        Serial.println("");
     }
-    else if(i==1){ // Draw the roof
-      for(int a=0; a < screenWidth; a++){
+    else if(y==1){ // Draw the roof
+      for(int x=0; x < screenWidth; x++){
         Serial.print("-");
       }
       Serial.println("");
     }
-    else if(i==(screenHeight)){ // Draw the floor
-      for(int a=0; a < screenWidth; a++){
+    else if(y==(screenHeight)){ // Draw the floor
+      for(int x=0; x < screenWidth; x++){
         Serial.print("-");
       }
       Serial.println("");
     }
-    else if (i==(screenHeight - 10)){ // start
+    else if (y==(screenHeight - 10)){ // start
         const int start_lengt = 5;
         String start_string[start_lengt] = {"s", "t", "a", "r", "t"};
-        for(int a = 0; a < screenWidth; a++){
-            if(a == 0 || a == screenWidth -1){ //Draw Edge
+        for(int x = 0; x < screenWidth; x++){
+            if(x == 0 || x == screenWidth -1){ //Draw Edge
             Serial.print("#");
             }
-            else if(a >= 4 && a < 4 + start_lengt){ //Draw paddle p1
-                Serial.print(start_string[a-4]);
+            else if(x >= 4 && x < 4 + start_lengt){ //Draw paddle p1
+                Serial.print(start_string[x-4]);
             }
             else{// Draw void
             Serial.print(".");
@@ -125,8 +125,8 @@ void SerialMonitorDisplay::startGame(){
         Serial.println("");
     }
     else { // actual led screen
-      for(int a = 0; a < screenWidth; a++){
-        if(a == 0 || a == screenWidth -1){ //Draw Edge
+      for(int x = 0; x < screenWidth; x++){
+        if(x == 0 || x == screenWidth -1){ //Draw Edge
           Serial.print("#");
         }
         else{// Draw void
@@ -141,32 +141,32 @@ void SerialMonitorDisplay::startGame(){
 
 void SerialMonitorDisplay::gameOver(int winner){
   Serial.println("");
-  for(int i=0; i < screenHeight+1;i++){
-    if(i==0){ // Draw statusbar
+  for(int y=0; y < screenHeight+1;y++){
+    if(y==0){ // Draw statusbar
        
        Serial.println("");
     }
-    else if(i==1){ // Draw the roof
-      for(int a=0; a < screenWidth; a++){
+    else if(y==1){ // Draw the roof
+      for(int x=0; x < screenWidth; x++){
         Serial.print("-");
       }
       Serial.println("");
     }
-    else if(i==(screenHeight)){ // Draw the floor
-      for(int a=0; a < screenWidth; a++){
+    else if(y==(screenHeight)){ // Draw the floor
+      for(int x=0; x < screenWidth; x++){
         Serial.print("-");
       }
       Serial.println("");
     }
-    else if (i==(screenHeight - 10)){ // start
+    else if (y==(screenHeight - 10)){ // start
         const int win_lengt = 7;
         String win_string[win_lengt] = {"P", String(winner), ".", "w", "i", "n", "s"};
-        for(int a = 0; a < screenWidth; a++){
-            if(a == 0 || a == screenWidth -1){ //Draw Edge
+        for(int x = 0; x < screenWidth; x++){
+            if(x == 0 || x == screenWidth -1){ //Draw Edge
             Serial.print("#");
             }
-            else if(a >= 4 && a < 4 + win_lengt){ //Draw paddle p1
-                Serial.print(win_string[a-4]);
+            else if(x >= 4 && x < 4 + win_lengt){ //Draw paddle p1
+                Serial.print(win_string[x-4]);
             }
             else{// Draw void
             Serial.print(".");
@@ -175,8 +175,8 @@ void SerialMonitorDisplay::gameOver(int winner){
         Serial.println("");
     }
     else { // actual led screen
-      for(int a = 0; a < screenWidth; a++){
-        if(a == 0 || a == screenWidth -1){ //Draw Edge
+      for(int x = 0; x < screenWidth; x++){
+        if(x == 0 || x == screenWidth -1){ //Draw Edge
           Serial.print("#");
         }
         else{// Draw void

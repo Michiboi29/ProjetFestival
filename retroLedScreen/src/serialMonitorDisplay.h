@@ -16,7 +16,7 @@ class SerialMonitorDisplay{
 
 
     private:
-    bool isPaddleHeight(int paddle, int i);
+    bool isPaddleHeight(int paddle, int y);
 
     // Game Settings
     const int screenHeight = SCREEN_HEIGHT + 2;
