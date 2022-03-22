@@ -13,6 +13,8 @@
 const CRGB COLOR_VOID = (0,0,0);
 const CRGB COLOR_P1 = (0,0,255); // blue
 const CRGB COLOR_P2 = (255,0,0); // red
+const CRGB COLOR_SCORE_P1 = (0,0,180); // blue
+const CRGB COLOR_SCORE_P2 = (180,0,0); // red
 const CRGB COLOR_BALL = (160,200,150); // 40mA
 const CRGB COLOR_REGIE = (190,40,15); // 20mA
 const CRGB COLOR_WIN = (70,105,80); // 20mA
@@ -33,6 +35,7 @@ class LedMonitorDisplay{
     void showBlue();
     void showRed();
     void showWins();
+    void showDigit(int digit, int pos_x, int pos_y, CRGB color);
 
     CRGB leds[NUM_LEDS];
     CRGB ledMatrix[NUM_YLEDS][NUM_XLEDS];
