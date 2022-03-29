@@ -368,7 +368,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     ledUpdate(x, y, color);
                 }
                 else if (x == min_x + 1){
-                    if(y == min_y || max_y){
+                    if((y == min_y) || (y == max_y)){
                         ledUpdate(x, y, color);
                     }
                     else{
@@ -402,7 +402,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     }
                 }
                 else if (x == min_x + 1){
-                    if(y == min_y + 1 || min_y + 3){
+                    if((y == min_y + 1) || (y == min_y + 3)){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -421,7 +421,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
             
             case 3:
                 if(x == min_x){
-                    if(y == min_y + 1 || min_y + 3){
+                    if((y == min_y + 1) || (y == min_y + 3)){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -429,7 +429,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     }
                 }
                 else if (x == min_x + 1){
-                    if(y == min_y + 1 || min_y + 3){
+                    if((y == min_y + 1) || (y == min_y + 3)){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -443,7 +443,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
             
             case 4:
                 if(x == min_x){
-                    if(y == min_y || min_y + 1){
+                    if((y == min_y) || (y == min_y + 1)){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -473,7 +473,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     }
                 }
                 else if (x == min_x + 1){
-                    if(y == min_y + 1 || min_y + 3){
+                    if((y == min_y + 1) || (y == min_y + 3)){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -495,7 +495,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     ledUpdate(x, y, color);
                 }
                 else if (x == min_x + 1){
-                    if(y == min_y + 1 || min_y + 3){
+                    if((y == min_y + 1) || (y == min_y + 3)){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -539,7 +539,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     ledUpdate(x, y, color);
                 }
                 else if (x == min_x + 1){
-                    if(y == min_y + 1 || min_y + 3){
+                    if((y == min_y + 1) || (y == min_y + 3)){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -561,7 +561,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     }
                 }
                 else if (x == min_x + 1){
-                    if(y == min_y || max_y + 1){
+                    if((y == min_y) || (y == max_y + 1)){
                         ledUpdate(x, y, color);
                     }
                     else{
