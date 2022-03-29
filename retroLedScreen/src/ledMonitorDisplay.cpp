@@ -2,6 +2,7 @@
 
 void LedMonitorDisplay::init(){
     FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+    blackScreen();
 }
 
 void LedMonitorDisplay::refresh(){
@@ -14,7 +15,7 @@ void LedMonitorDisplay::ledUpdate(int x, int y, CRGB color){
         n = y*NUM_XLEDS + x;
     }
     else{ // impair
-        n = y*NUM_XLEDS + (NUM_XLEDS - x);
+        n = y*NUM_XLEDS + ((NUM_XLEDS - 1) - x);
     }
     leds[n] = color;
 }
@@ -101,7 +102,6 @@ void LedMonitorDisplay::blackScreen(){
         leds[n] = COLOR_VOID;
     }
     refresh();
-    delay(500);
 }
 
 void LedMonitorDisplay::showRegie(){
@@ -355,58 +355,62 @@ void LedMonitorDisplay::showWins(){
 }
 
 void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
-    for(int x = pos_x; x < pos_x + 3; x++){
-        for(int y = pos_y; y < pos_y + 5; y++){
+    int min_x = pos_x;
+    int max_x = min_x + 2;
+    int min_y = pos_y;
+    int max_y = min_y + 4;
+    for(int x = min_x; x < max_x + 1; x++){
+        for(int y = min_y; y < max_y + 1; y++){
             switch (digit%10)
             {
             case 0:
-                if(x == pos_x){
+                if(x == min_x){
                     ledUpdate(x, y, color);
                 }
-                else if (x == pos_x + 1){
-                    if(y == pos_y || pos_y + 4){
+                else if (x == min_x + 1){
+                    if(y == min_y || max_y){
                         ledUpdate(x, y, color);
                     }
                     else{
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x == pos_x + 2){
+                else if (x == max_x){
                     ledUpdate(x, y, color);
                 }
                 break;
 
             case 1:
-                if(x == pos_x){
+                if(x == min_x){
                     ledUpdate(x, y, COLOR_VOID);
                 }
-                else if (x == pos_x + 1){
+                else if (x == min_x + 1){
                     ledUpdate(x, y, COLOR_VOID);
                 }
-                else if (x == pos_x + 2){
+                else if (x == max_x){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 2:
-                if(x == pos_x){
-                    if(y == pos_y + 3){
+                if(x == min_x){
+                    if(y == min_y + 3){
                         ledUpdate(x, y,  COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 1){
-                    if(y == pos_y + 1 || pos_y + 3){
+                else if (x == min_x + 1){
+                    if(y == min_y + 1 || min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 2){
-                    if(y == pos_y + 1){
+                else if (x == max_x){
+                    if(y == min_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -416,68 +420,68 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                 break;
             
             case 3:
-                if(x == pos_x){
-                    if(y == pos_y + 1 || pos_y + 3){
+                if(x == min_x){
+                    if(y == min_y + 1 || min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 1){
-                    if(y == pos_y + 1 || pos_y + 3){
+                else if (x == min_x + 1){
+                    if(y == min_y + 1 || min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 2){
+                else if (x == max_x){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 4:
-                if(x == pos_x){
-                    if(y == pos_y || pos_y + 1){
+                if(x == min_x){
+                    if(y == min_y || min_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 1){
-                    if(y == pos_y + 2){
+                else if (x == min_x + 1){
+                    if(y == min_y + 2){
                         ledUpdate(x, y, color);
                     }
                     else{
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x == pos_x + 2){
+                else if (x == max_x){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 5:
-                if(x == pos_x){
-                    if(y == pos_y + 1){
+                if(x == min_x){
+                    if(y == min_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 1){
-                    if(y == pos_y + 1 || pos_y + 3){
+                else if (x == min_x + 1){
+                    if(y == min_y + 1 || min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 2){
-                    if(y == pos_y + 3){
+                else if (x == max_x){
+                    if(y == min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -487,19 +491,19 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                 break;
             
             case 6:
-                if(x == pos_x){
+                if(x == min_x){
                     ledUpdate(x, y, color);
                 }
-                else if (x == pos_x + 1){
-                    if(y == pos_y + 1 || pos_y + 3){
+                else if (x == min_x + 1){
+                    if(y == min_y + 1 || min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 2){
-                    if(y == pos_y + 3){
+                else if (x == max_x){
+                    if(y == min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -509,62 +513,62 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                 break;
             
             case 7:
-                if(x == pos_x){
-                    if(y == pos_y + 4){
+                if(x == min_x){
+                    if(y == max_y){
                         ledUpdate(x, y, color);
                     }
                     else{
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x == pos_x +1){
-                    if(y == pos_y + 4){
+                else if (x == min_x + 1){
+                    if(y == max_y){
                         ledUpdate(x, y, color);
                     }
                     else{
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x == pos_x +2){
+                else if (x == max_x){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 8:
-                if(x == pos_x){
+                if(x == min_x){
                     ledUpdate(x, y, color);
                 }
-                else if (x == pos_x + 1){
-                    if(y == pos_y + 1 || pos_y + 3){
+                else if (x == min_x + 1){
+                    if(y == min_y + 1 || min_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x + 2){
+                else if (x == max_x){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 9:
-                if(x == pos_x){
-                    if(y == pos_y + 1){
+                if(x == min_x){
+                    if(y == min_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x == pos_x +1){
-                    if(y == pos_y || pos_y + 5){
+                else if (x == min_x + 1){
+                    if(y == min_y || max_y + 1){
                         ledUpdate(x, y, color);
                     }
                     else{
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x == pos_x +2){
+                else if (x == max_x){
                     ledUpdate(x, y, color);
                 }
                 break;

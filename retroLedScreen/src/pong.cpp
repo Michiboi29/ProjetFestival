@@ -145,14 +145,14 @@ void Pong::updateBall(){
     int new_x = ball_x + ball_dir_x;
     int new_y = ball_y + ball_dir_y;
     // Verifier si on touche un  mur
-    if( new_x < 0 || new_x > 19){
+    if( new_x < 0 || new_x > (SCREEN_WIDTH - 1)){
         // Si P2 a scorrer
         if(new_x < 0){
             p2_score++;
             reset_ball = 1; // p2 lost
         }
         // Si p1 a scorrer
-        else if(new_x > 19){
+        else if(new_x > (SCREEN_WIDTH - 1)){
             p1_score++;
             reset_ball = 2; //p2 lost
         }
@@ -161,7 +161,7 @@ void Pong::updateBall(){
         gameSound.point();
     }
     // verifier si touche plafond/plancher
-    if(new_y < 0 || new_y > 13){
+    if(new_y < 0 || new_y >(SCREEN_HEIGHT - 1)){
         ball_dir_y = -ball_dir_y; // changement de la direction
         new_y += ball_dir_y + ball_dir_y; // faire bouger la balle lus loin que le mur
         gameSound.bounce();

@@ -15,7 +15,7 @@
 #define PADDLE_HEIGHT 3
 #define SCREEN_HEIGHT 14
 #define SCREEN_WIDTH 20
-#define MAX_SCORE 3
+#define MAX_SCORE 5
 
 class Pong{
     public:
