@@ -1,10 +1,10 @@
 #include <Arduino.h>
-#include <FastLED.h>
+#include "pong.h"
+#include "serialMonitorDisplay.h"
+#include "ledMonitorDisplay.h"
 
-#define LED_PIN     7
+#undef NUM_LEDS
 #define NUM_LEDS    20
-#define NUM_XLEDS   20
-#define NUM_YLEDS   14
 
 CRGB leds[NUM_LEDS];
 CRGB ledMatrix[NUM_YLEDS][NUM_XLEDS];

@@ -2,6 +2,7 @@
 #define PONG_H
 
 #include "Arduino.h"
+#include "sound.h"
 
 // PINS
 #define RESTART 6
@@ -10,7 +11,7 @@
 #define P2_UP 4
 #define P2_DOWN 5
 
-// Constants
+// Game settings
 #define PADDLE_HEIGHT 3
 #define SCREEN_HEIGHT 14
 #define SCREEN_WIDTH 20
@@ -54,6 +55,7 @@ class Pong{
         bool p1_down_state = false;
         bool p2_up_state = false;
         bool p2_down_state = false;
+       
 };
 
 #endif //PONG_H

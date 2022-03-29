@@ -2,46 +2,43 @@
 #include "pong.h"
 #include "serialMonitorDisplay.h"
 #include "ledMonitorDisplay.h"
-#include "sound.h"
 
 Pong game;
 SerialMonitorDisplay display;
-LedMonitorDisplay screen;
-Sound sound;
-
-void test_ligne(int ligne){
-  for (int j = 0; j < 256; j++){
-    CRGB color = CRGB(j,0,0);
-    int max_val = 20;
-    for (int x = 0; x < max_val; x++){
-      screen.ledUpdate(x, ligne, color);
-    }
-    screen.refresh(); 
-  }
-  screen.blackScreen();
-}
+LedMonitorDisplay ledDisplay;
 
 void setup() {  
   game.init();
   display.init();
   display.startGame();
-  screen.init();
-  sound.bounce();
-  delay(500);
-  sound.point();
+  ledDisplay.init();
 }
 
 void loop() {
 
-  // test leds
-  int max_val = 8;
-  for (int l = 0; l < max_val; l++){
-    test_ligne(l);
-  }
-  
-  
+  // test premiere rager
 
-  // test game serial
+  int max_val = 1;
+  for (int i = 0; i < max_val; i++){
+    ledDisplay.ledUpdate(i, 0, COLOR_REGIE);
+    ledDisplay.refresh();
+    delay(100);  
+  }
+
+  // test no delay
+
+  // int max_val = 20;
+  // for (int i = 0; i < max_val; i++){
+  //   ledDisplay.ledUpdate(i, 0, COLOR_P2);
+  //   ledDisplay.refresh();  
+  // }
+  // for (int i = 0; i < max_val; i++){
+  //   ledDisplay.ledUpdate(i, 0, COLOR_P1);
+  //   ledDisplay.refresh();  
+  // }
+  // delay(100);
+
+  // test game
 
   // if(game.run()){
   //   if(game.winner != 0){

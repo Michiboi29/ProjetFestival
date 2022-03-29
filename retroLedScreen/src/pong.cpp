@@ -1,16 +1,18 @@
 #include "pong.h"
 
+Sound gameSound;
+
 void Pong::init(){
     // Button du P1 
-    pinMode(P1_UP, INPUT);
-    pinMode(P1_DOWN, INPUT);
+    pinMode(P1_UP, INPUT_PULLUP);
+    pinMode(P1_DOWN, INPUT_PULLUP);
     // Chngement detat si le button est press P1
     digitalWrite(P1_UP, 1);
     digitalWrite(P1_DOWN, 1);
 
     // Button du P2
-    pinMode(P2_UP, INPUT);
-    pinMode(P2_DOWN, INPUT);
+    pinMode(P2_UP, INPUT_PULLUP);
+    pinMode(P2_DOWN, INPUT_PULLUP);
     // Chngement detat si le button est press P2
     digitalWrite(P2_UP, 1);
     digitalWrite(P2_DOWN, 1);
@@ -104,10 +106,10 @@ void Pong::resetBall(uint8_t p_reset_ball){
 }
 
 void Pong::paddleStateUpdate(){
-    p1_up_state |= (digitalRead(P1_UP) == LOW);
-    p1_down_state |= (digitalRead(P1_DOWN) == LOW);
-    p2_up_state |= (digitalRead(P2_UP) == LOW);
-    p2_down_state |= (digitalRead(P2_DOWN) == LOW);
+    p1_up_state |= (digitalRead(P1_UP) == HIGH);
+    p1_down_state |= (digitalRead(P1_DOWN) == HIGH);
+    p2_up_state |= (digitalRead(P2_UP) == HIGH);
+    p2_down_state |= (digitalRead(P2_DOWN) == HIGH);
 }
 
 void Pong::gameReset(){
@@ -156,21 +158,25 @@ void Pong::updateBall(){
         }
         ball_dir_x = -ball_dir_x;
         new_x += ball_dir_x + ball_dir_x;
+        gameSound.point();
     }
     // verifier si touche plafond/plancher
     if(new_y < 0 || new_y > 13){
         ball_dir_y = -ball_dir_y; // changement de la direction
         new_y += ball_dir_y + ball_dir_y; // faire bouger la balle lus loin que le mur
+        gameSound.bounce();
     }
     // verifier si on touche la Paddle du P1
     if (isPaddleP1Hit(new_x, new_y)){
         ball_dir_x = -ball_dir_x; // changement de la direction
         new_x += ball_dir_x + ball_dir_x; // nouvelle pos
+        gameSound.bounce();
     }
     // verifier si on touche la paddle p2
     if (isPaddleP2Hit(new_x, new_y)){
         ball_dir_x = -ball_dir_x; // changement de la direction
         new_x += ball_dir_x + ball_dir_x; // nouvelle pos
+        gameSound.bounce();
     }
     ball_x = new_x; // assignation de la new pos
     ball_y = new_y; // assignation de la new pos
@@ -213,3 +219,5 @@ void Pong::updatePaddle(){
     
     update = true;
 }
+
+

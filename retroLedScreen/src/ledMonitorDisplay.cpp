@@ -4,6 +4,10 @@ void LedMonitorDisplay::init(){
     FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
 }
 
+void LedMonitorDisplay::refresh(){
+    FastLED.show();
+}
+
 void LedMonitorDisplay::ledUpdate(int x, int y, CRGB color){
     int n;
     if(y%2 == 0){ // pair
@@ -62,7 +66,7 @@ void LedMonitorDisplay::drawScreen(int bal_x, int bal_y, int paddle_p1, int padd
             }
         }
     }
-    FastLED.show();
+    refresh();
     delay(updateSpeed);
 }
 
@@ -96,7 +100,7 @@ void LedMonitorDisplay::blackScreen(){
     for (int n = 0; n < NUM_LEDS; n++){
         leds[n] = COLOR_VOID;
     }
-    FastLED.show();
+    refresh();
     delay(500);
 }
 
@@ -159,7 +163,7 @@ void LedMonitorDisplay::showRegie(){
             }
         }
     }
-    FastLED.show();
+    refresh();
 }
 
 // P1 is blue
@@ -223,7 +227,7 @@ void LedMonitorDisplay::showBlue(){
             }
         }
     }
-    FastLED.show();
+    refresh();
 }
 
 // P2 is red
@@ -283,7 +287,7 @@ void LedMonitorDisplay::showRed(){
             }
         }
     }
-    FastLED.show();
+    refresh();
 }
 
 void LedMonitorDisplay::showWins(){
@@ -347,7 +351,7 @@ void LedMonitorDisplay::showWins(){
             }
         }
     }
-    FastLED.show();
+    refresh();
 }
 
 void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
@@ -356,10 +360,10 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
             switch (digit%10)
             {
             case 0:
-                if(x = pos_x){
+                if(x == pos_x){
                     ledUpdate(x, y, color);
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     if(y == pos_y || pos_y + 4){
                         ledUpdate(x, y, color);
                     }
@@ -367,25 +371,25 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     ledUpdate(x, y, color);
                 }
                 break;
 
             case 1:
-                if(x = pos_x){
+                if(x == pos_x){
                     ledUpdate(x, y, COLOR_VOID);
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     ledUpdate(x, y, COLOR_VOID);
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 2:
-                if(x = pos_x){
+                if(x == pos_x){
                     if(y == pos_y + 3){
                         ledUpdate(x, y,  COLOR_VOID);
                     }
@@ -393,7 +397,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     if(y == pos_y + 1 || pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -401,7 +405,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     if(y == pos_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -412,7 +416,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                 break;
             
             case 3:
-                if(x = pos_x){
+                if(x == pos_x){
                     if(y == pos_y + 1 || pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -420,7 +424,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     if(y == pos_y + 1 || pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -428,13 +432,13 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 4:
-                if(x = pos_x){
+                if(x == pos_x){
                     if(y == pos_y || pos_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -442,7 +446,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     if(y == pos_y + 2){
                         ledUpdate(x, y, color);
                     }
@@ -450,13 +454,13 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 5:
-                if(x = pos_x){
+                if(x == pos_x){
                     if(y == pos_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -464,7 +468,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     if(y == pos_y + 1 || pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -472,7 +476,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     if(y == pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -483,10 +487,10 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                 break;
             
             case 6:
-                if(x = pos_x){
+                if(x == pos_x){
                     ledUpdate(x, y, color);
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     if(y == pos_y + 1 || pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -494,7 +498,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     if(y == pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -505,7 +509,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                 break;
             
             case 7:
-                if(x = pos_x){
+                if(x == pos_x){
                     if(y == pos_y + 4){
                         ledUpdate(x, y, color);
                     }
@@ -513,7 +517,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x = pos_x +1){
+                else if (x == pos_x +1){
                     if(y == pos_y + 4){
                         ledUpdate(x, y, color);
                     }
@@ -521,16 +525,16 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x = pos_x +2){
+                else if (x == pos_x +2){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 8:
-                if(x = pos_x){
+                if(x == pos_x){
                     ledUpdate(x, y, color);
                 }
-                else if (x = pos_x + 1){
+                else if (x == pos_x + 1){
                     if(y == pos_y + 1 || pos_y + 3){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -538,13 +542,13 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x + 2){
+                else if (x == pos_x + 2){
                     ledUpdate(x, y, color);
                 }
                 break;
             
             case 9:
-                if(x = pos_x){
+                if(x == pos_x){
                     if(y == pos_y + 1){
                         ledUpdate(x, y, COLOR_VOID);
                     }
@@ -552,7 +556,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, color);
                     }
                 }
-                else if (x = pos_x +1){
+                else if (x == pos_x +1){
                     if(y == pos_y || pos_y + 5){
                         ledUpdate(x, y, color);
                     }
@@ -560,7 +564,7 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                 }
-                else if (x = pos_x +2){
+                else if (x == pos_x +2){
                     ledUpdate(x, y, color);
                 }
                 break;

@@ -10,14 +10,14 @@
 #define NUM_XLEDS   20
 #define NUM_YLEDS   14
 
-const CRGB COLOR_VOID = (0,0,0);
-const CRGB COLOR_P1 = (0,0,255); // blue
-const CRGB COLOR_P2 = (255,0,0); // red
-const CRGB COLOR_SCORE_P1 = (0,0,180); // blue
-const CRGB COLOR_SCORE_P2 = (180,0,0); // red
-const CRGB COLOR_BALL = (160,200,150); // 40mA
-const CRGB COLOR_REGIE = (190,40,15); // 20mA
-const CRGB COLOR_WIN = (70,105,80); // 20mA
+const CRGB COLOR_VOID = CRGB(0,0,0);
+const CRGB COLOR_P1 = CRGB(0,0, 55); // blue
+const CRGB COLOR_P2 = CRGB(255, 0,0); // red
+const CRGB COLOR_SCORE_P1 = CRGB(0, 0, 180); // blue
+const CRGB COLOR_SCORE_P2 = CRGB(180, 0, 0); // red
+const CRGB COLOR_BALL = CRGB(160, 200, 150); // 40mA
+const CRGB COLOR_REGIE = CRGB(190, 40, 15); // 20mA
+const CRGB COLOR_WIN = CRGB(70, 105, 80); // 20mA
 
 class LedMonitorDisplay{
     public:
@@ -27,10 +27,14 @@ class LedMonitorDisplay{
     void startGame();
     void gameOver(int winner);
 
+    // test
+    void ledUpdate(int x, int y, CRGB color);
+    void refresh();
+    void blackScreen();
+
     private:
     bool isPaddleHeight(int paddle, int y);
-    void ledUpdate(int x, int y, CRGB color);
-    void blackScreen();
+    
     void showRegie();
     void showBlue();
     void showRed();
@@ -38,7 +42,6 @@ class LedMonitorDisplay{
     void showDigit(int digit, int pos_x, int pos_y, CRGB color);
 
     CRGB leds[NUM_LEDS];
-    CRGB ledMatrix[NUM_YLEDS][NUM_XLEDS];
 
     // Game Settings
     const int screenHeight = SCREEN_HEIGHT;
