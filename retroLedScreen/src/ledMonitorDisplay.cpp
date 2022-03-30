@@ -54,7 +54,7 @@ void LedMonitorDisplay::drawScreen(int bal_x, int bal_y, int paddle_p1, int padd
                     ledUpdate(x, y, COLOR_VOID);
                 }
             }
-            else if(x == bal_x + 1){ //Draw bal
+            else if(x == bal_x){ //Draw bal
                 if(y == (screenHeight - 1 - bal_y)) { // p1
                     ledUpdate(x, y, COLOR_BALL);
                 }
@@ -83,10 +83,10 @@ void LedMonitorDisplay::gameOver(int winner){
     delay(100);
     blackScreen();
     if(winner == 1){
-        showRed();
+        showBlue();
     }
     else if(winner == 2){
-        showBlue();
+        showRed();
     }
     if (winner != 0){
         delay(3000);
@@ -201,8 +201,8 @@ void LedMonitorDisplay::showBlue(){
                     }
                 }
                 else if(y == 8){ // line 4
-                    if(x == 2 || x == 4 || (x >= 6 && x <= 8) 
-                    || (x >= 10 && x <= 13) || x >= 15){
+                    if(x == 4 || x == 6 || x == 8 || x == 9 || x == 11
+                    || x == 13 || x >= 15){
                         ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
@@ -561,11 +561,11 @@ void LedMonitorDisplay::showDigit(int digit, int pos_x, int pos_y, CRGB color){
                     }
                 }
                 else if (x == min_x + 1){
-                    if((y == min_y) || (y == max_y + 1)){
-                        ledUpdate(x, y, color);
+                    if((y == min_y + 1) || (y == min_y + 3)){
+                        ledUpdate(x, y, COLOR_VOID);
                     }
                     else{
-                        ledUpdate(x, y, COLOR_VOID);
+                        ledUpdate(x, y, color);
                     }
                 }
                 else if (x == max_x){

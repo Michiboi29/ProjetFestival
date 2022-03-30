@@ -128,14 +128,14 @@ void Pong::gameOver(){
 }
 
 bool Pong::isPaddleP1Hit(int new_x, int new_y){
-    if ((new_x == p1_x && new_y >= p1_y) && (new_y <= (p1_y + (PADDLE_HEIGHT - 1)))){
+    if ((new_x == p1_x) && (new_y >= p1_y) && (new_y <= (p1_y + (PADDLE_HEIGHT - 1)))){
         return true;
     }
     return false;
 }
 
 bool Pong::isPaddleP2Hit(int new_x, int new_y){
-    if ((new_x == p2_x && new_y >= p2_y ) && (new_y <= (p2_y + (PADDLE_HEIGHT - 1)))){
+    if ((new_x == p2_x) && (new_y >= p2_y ) && (new_y <= (p2_y + (PADDLE_HEIGHT - 1)))){
         return true;
     }
     return false;
@@ -149,7 +149,7 @@ void Pong::updateBall(){
         // Si P2 a scorrer
         if(new_x < 0){
             p2_score++;
-            reset_ball = 1; // p2 lost
+            reset_ball = 1; // p1 lost
         }
         // Si p1 a scorrer
         else if(new_x > (SCREEN_WIDTH - 1)){
@@ -161,19 +161,19 @@ void Pong::updateBall(){
         gameSound.point();
     }
     // verifier si touche plafond/plancher
-    if(new_y < 0 || new_y >(SCREEN_HEIGHT - 1)){
+    else if(new_y < 0 || new_y > (SCREEN_HEIGHT - 1)){
         ball_dir_y = -ball_dir_y; // changement de la direction
         new_y += ball_dir_y + ball_dir_y; // faire bouger la balle lus loin que le mur
         gameSound.bounce();
     }
     // verifier si on touche la Paddle du P1
-    if (isPaddleP1Hit(new_x, new_y)){
+    else if (isPaddleP1Hit(new_x, new_y)){
         ball_dir_x = -ball_dir_x; // changement de la direction
         new_x += ball_dir_x + ball_dir_x; // nouvelle pos
         gameSound.bounce();
     }
     // verifier si on touche la paddle p2
-    if (isPaddleP2Hit(new_x, new_y)){
+    else if (isPaddleP2Hit(new_x, new_y)){
         ball_dir_x = -ball_dir_x; // changement de la direction
         new_x += ball_dir_x + ball_dir_x; // nouvelle pos
         gameSound.bounce();
@@ -198,8 +198,8 @@ void Pong::updatePaddle(){
     if(p1_y < 0){
         p1_y = 0;
     }
-    if((p1_y + (PADDLE_HEIGHT - 1)) > 13){
-        p1_y = 13 - (PADDLE_HEIGHT-1);
+    if((p1_y + (PADDLE_HEIGHT - 1)) >  (SCREEN_HEIGHT - 1)){
+        p1_y = (SCREEN_HEIGHT - 1) - (PADDLE_HEIGHT-1);
     }
     p1_down_state = p1_up_state = false;
     // P2
@@ -212,8 +212,8 @@ void Pong::updatePaddle(){
     if(p2_y < 0){
         p2_y = 0;
     }
-    if((p2_y + (PADDLE_HEIGHT - 1)) > 13){
-        p2_y = 13 - (PADDLE_HEIGHT-1);
+    if((p2_y + (PADDLE_HEIGHT - 1)) > (SCREEN_HEIGHT - 1)){
+        p2_y = (SCREEN_HEIGHT - 1) - (PADDLE_HEIGHT-1);
     }
     p2_down_state = p2_up_state = false;
     

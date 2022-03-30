@@ -34,10 +34,10 @@ void loop() {
 
   // test ecran rouge
 
-  int max_val = 14;
-  for (int l = 0; l < max_val; l++){
-    test_ligne(l);
-  }
+  // int max_val = 14;
+  // for (int l = 0; l < max_val; l++){
+  //   test_ligne(l);
+  // }
   
   // test screen score
 
@@ -49,15 +49,15 @@ void loop() {
   
   // test game 
 
-  // if(game.run()){
-  //   if(game.winner != 0){
-  //     screen.gameOver(game.winner);
-  //     game.winner = 0;
-  //   }
-  //   screen.startGame();
-  //   game.restart = false;
-  // }
-  // else{
-  //   screen.drawScreen(game.ball_x, game.ball_y, game.p1_y, game.p2_y, game.p1_score, game.p2_score);
-  // }
+  if(game.run()){
+    if(game.winner != 0){
+      screen.gameOver(game.winner);
+      game.winner = 0;
+    }
+    screen.startGame();
+    game.restart = false;
+  }
+  else{
+    screen.drawScreen(game.ball_x, game.ball_y, game.p1_y, game.p2_y, game.p1_score, game.p2_score);
+  }
 }
