@@ -161,13 +161,13 @@ void Pong::updateBall(){
         gameSound.point();
     }
     // verifier si touche plafond/plancher
-    else if(new_y < 0 || new_y > (SCREEN_HEIGHT - 1)){
+    if(new_y < 0 || new_y > (SCREEN_HEIGHT - 1)){
         ball_dir_y = -ball_dir_y; // changement de la direction
         new_y += ball_dir_y + ball_dir_y; // faire bouger la balle lus loin que le mur
         gameSound.bounce();
     }
     // verifier si on touche la Paddle du P1
-    else if (isPaddleP1Hit(new_x, new_y)){
+    if (isPaddleP1Hit(new_x, new_y)){
         ball_dir_x = -ball_dir_x; // changement de la direction
         new_x += ball_dir_x + ball_dir_x; // nouvelle pos
         gameSound.bounce();
