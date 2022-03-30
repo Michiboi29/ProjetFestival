@@ -16,9 +16,15 @@ void test_ligne(int ligne){
     screen.ledUpdate(x, ligne, color);
   }
   screen.refresh();
-  // delay(500);
-  // screen.blackScreen();
 }
+
+void test_ecran(){
+  int max_val = 14;
+  for (int l = 0; l < max_val; l++){
+    test_ligne(l);
+  }
+}
+
 
 void setup() {  
   game.init();
@@ -33,31 +39,29 @@ void setup() {
 void loop() {
 
   // test ecran rouge
-
-  // int max_val = 14;
-  // for (int l = 0; l < max_val; l++){
-  //   test_ligne(l);
-  // }
+  //test_ecran();
   
-  // test screen score
-
-  // for (int j = 0; j < 10; j++){
-  //   screen.displayScore(j, j);
-  //   screen.refresh();
-  //   delay(1000);
-  // }
-  
-  // test game 
-
+  // game pong ecran
   if(game.run()){
     if(game.winner != 0){
+      // ecran
       screen.gameOver(game.winner);
+      // serial
+      //display.gameOver(game.winner);
+
       game.winner = 0;
     }
+    // ecran
     screen.startGame();
+    // serial
+    //display.startGame();
+
     game.restart = false;
   }
   else{
+    // ecran
     screen.drawScreen(game.ball_x, game.ball_y, game.p1_y, game.p2_y, game.p1_score, game.p2_score);
+    // serial
+    //display.drawScreen(game.ball_x, game.ball_y, game.p1_y, game.p2_y, game.p1_score, game.p2_score);
   }
 }
